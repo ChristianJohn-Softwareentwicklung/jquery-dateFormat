@@ -210,7 +210,13 @@ var DateFormat = {};
           if(parsedDate === null) {
             return value;
           }
-
+          // Fix for undefined messages
+          // An invalid date object returns NaN for getTime() and NaN is the only
+          // object not strictly equal to itself.
+          if(parsedDate.date.getTime() !== parsedDate.date.getTime()){
+              return value;
+          }
+          
           var year       = parsedDate.year,
               month      = parsedDate.month,
               dayOfMonth = parsedDate.dayOfMonth,
